@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    String @id @map("_id")
+  email String @unique
+
+  File    File[]
+  Message Message[]
+
+  paystackCustomerId     String?   @unique @map(name: "paystack_customer_id")
+  paystackSubscriptionID String?   @unique @map(name: "paystack_subscription_id")
+  paystackPriceId        String?   @unique @map(name: "paystack_price_id")
+  paystackCurrentPeriodEnd   DateTime? @map(name: "paystack_current_period_end")
+}
+
+enum UploadStatus {
+  PENDING
+  PROCESSING
+  FAILED
+  SUCCESS
+}
+
+model File {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+
+  uploadStatus UploadStatus @default(PENDING)
+
+  url String
+  key String
+  Message Message[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    String?  
+
+  embeddings Float[]
+}
+
+model Message {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  text    String @db.String()
+
+  isUserMessage Boolean
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  User     User?    @relation(fields: [userId], references: [id])
+  userId   String?
+  File     File?   @relation(fields: [fileId], references: [id])
+  fileId   String? @db.ObjectId
+  
+}
