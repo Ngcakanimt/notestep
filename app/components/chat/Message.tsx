@@ -6,7 +6,7 @@ import { format } from 'date-fns'
 import { forwardRef } from 'react'
 
 interface MessageProps {
-  message: ExtendedMessage,
+  message: ExtendedMessage
   isNextMessageSamePerson: boolean,
 }
 

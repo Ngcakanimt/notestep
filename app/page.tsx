@@ -236,7 +236,7 @@ export default async function Home(){
                   <AccordionItem value="item-1">
                     <AccordionTrigger>Are the answers by Notestep accurate?</AccordionTrigger>
                     <AccordionContent className="text-start">
-                      Yes. We have designed our system to return the most accurate answers from your files. We also made sure the system only answers questions that are relevant to the content of your file. So if your files are accurate, you can trust Notestep's answers.
+                      Yes. We have designed our system to return the most accurate answers from your files. We also made sure the system only answers questions that are relevant to the content of your file. So if your files are accurate, you can trust Notestep&apos;s answers.
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-2">
@@ -288,7 +288,6 @@ export default async function Home(){
                     </div>
                   </Link>
                 </MaxWidthWrapper>
-
               </div>
             </div>
           </div>

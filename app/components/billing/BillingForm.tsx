@@ -81,8 +81,6 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
                 : "Upgrade to PRO"}
             </Button> */}
 
-            // check if subscriber is subscribed
-            // CODE GOES HERE
           </CardFooter>
         </Card>
       </form>
