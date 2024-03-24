@@ -5,7 +5,7 @@ import { db } from "@/app/db";
 
 const secret = process.env.PAYSTACK_SECRET_KEY || '';
 
-export default async function handler(req: Request) {
+export default async function POST(req: Request) {
     
     const hash = crypto.createHmac('sha512', secret).update(JSON.stringify(req.body)).digest('hex');
     
