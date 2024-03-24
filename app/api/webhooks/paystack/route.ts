@@ -46,6 +46,7 @@ export async function POST(req: Request) {
                     }
                 });
             case 'invoice.payment_failed': // Sent when a subscription payment fails
+                
             case 'subscription.not_renew': // Sent when a subscription is canceled to indicate that it won't be charged on the next payment date
                 await db.user.update({
                     where: {
