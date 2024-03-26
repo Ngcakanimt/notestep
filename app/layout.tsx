@@ -2,20 +2,18 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "./libs/utils";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navigation/Navbar";
 
 import { ClerkProvider } from '@clerk/nextjs'
 import Providers from "./providers/Providers";
 import { Toaster } from "@/components/ui/toaster";
 
 import 'simplebar-react/dist/simplebar.min.css'
+import { constructMetadata } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Notestep - Know your next step to success",
-  description: "Notestep is a AI powered note taking app that helps you analyze your meeting notes to identify your next steps and action items.",
-};
+export const metadata: Metadata = constructMetadata();
 
 export default function RootLayout({
   children,

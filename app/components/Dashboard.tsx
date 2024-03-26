@@ -10,8 +10,13 @@ import { format } from 'date-fns';
 import { Button } from './ui/button';
 import WriteCard from './WriteCard';
 import { toast } from '@/components/ui/use-toast';
+import { getUserSubscriptionPlan } from '@/lib/paystack';
 
-const Dashboard = () => {
+interface DashboardProps {
+    subscriptionPlan: Awaited<ReturnType<typeof getUserSubscriptionPlan>>
+}
+
+const Dashboard = ({subscriptionPlan}: DashboardProps) => {
 
     // State to check if a file is being deleted
     const [currentlyDeletingFile, setCurrentlyDeletingFile] = useState<string | null>(null);
@@ -57,7 +62,7 @@ const Dashboard = () => {
                     iconPath='/images/upload.svg'
                     title='Import'
                     description='Import your meeting notes'
-                    
+                    isSubscribed={subscriptionPlan.isSubscribed}
                 />
                 <WriteCard
                     iconPath='/images/file-edit.svg'

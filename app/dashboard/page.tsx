@@ -4,6 +4,7 @@ import { currentUser } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 import { db } from '../db';
 import Dashboard from '../components/Dashboard';
+import { getUserSubscriptionPlan } from '@/lib/paystack';
 
 const Page = async () => {
     const user = await currentUser();
@@ -22,9 +23,11 @@ const Page = async () => {
         redirect('/auth-callback?origin=dashboard');
     }
 
+    const subscriptionPlan = await getUserSubscriptionPlan();
+
     return (
         <div>
-            <Dashboard />
+            <Dashboard subscriptionPlan={subscriptionPlan} />
         </div>
     );
 };

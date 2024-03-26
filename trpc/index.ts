@@ -206,62 +206,57 @@ export const appRouter = router({
     return { url: transaction?.authorization_url}
   }),
 
-  // getUserSubscription: privateProcedure.query(async ({ ctx }) => {
-  //   const { userId } = ctx;
+  getUserSubscription: privateProcedure.query(async ({ ctx }) => {
+    const { userId } = ctx;
 
-  //   const dbUser = await db.user.findFirst({
-  //     where: {
-  //       id: userId,
-  //     },
-  //   })
+    const dbUser = await db.user.findFirst({
+      where: {
+        id: userId,
+      },
+    })
 
-  //   if (!dbUser) {
-  //     throw new TRPCError({ code: 'UNAUTHORIZED' })
-  //   }
+    if (!dbUser) {
+      throw new TRPCError({ code: 'UNAUTHORIZED' })
+    }
 
-  //   const url = '"https://api.paystack.co/subscription/{id_or_code}';
+    const url = `https://api.paystack.co/subscription/${dbUser.paystackSubscriptionID}`;
 
-  //   const response = await fetch(url, {
-  //     method: 'GET',
-  //     headers: {
-  //     Authorization: `Bearer ${process.env.PAYSTACK_TEST_SECRET_KEY}`,
-  //     },
-  //   }).then((res) => res.json());
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+      Authorization: `Bearer ${process.env.PAYSTACK_TEST_SECRET_KEY}`,
+      },
+    }).then((res) => res.json());
 
-  //   return response.data;
+    return response.data;
 
-  // }),
+  }),
 
-  // manageUserSubscription: privateProcedure.input(z.object({ 
-  //   subscriptionId: z.string()
-  // })).mutation(async ({ input, ctx }) => {
-  //   const { userId } = ctx;
+  manageUserSubscription: privateProcedure.mutation(async ({ ctx }) => {
+    const { userId } = ctx;
 
-  //   const dbUser = await db.user.findFirst({
-  //     where: {
-  //       id: userId,
-  //     },
-  //   })
+    const dbUser = await db.user.findFirst({
+      where: {
+        id: userId,
+      },
+    })
 
-  //   if (!dbUser) {
-  //     throw new TRPCError({ code: 'UNAUTHORIZED' })
-  //   }
+    if (!dbUser) {
+      throw new TRPCError({ code: 'UNAUTHORIZED' })
+    }
 
-    
-  //   const code = input.subscriptionId;
+    const url = `https://api.paystack.co/subscription/${dbUser.paystackSubscriptionID}/manage/link`
 
-  //   const url = `https://api.paystack.co/subscription/${code}/manage/link`
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${process.env.PAYSTACK_TEST_SECRET_KEY}`,
+      },
+    }).then((res) => res.json());
 
-  //   const response = await fetch(url, {
-  //     method: 'GET',
-  //     headers: {
-  //       Authorization: `Bearer ${process.env.PAYSTACK_TEST_SECRET_KEY}`,
-  //     },
-  //   }).then((res) => res.json());
+    return response.data.link;
 
-  //   return response.data.link;
-
-  // }),
+  }),
 
 
 });

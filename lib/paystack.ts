@@ -14,6 +14,7 @@ export async function getUserSubscriptionPlan() {
             ...PLANS[0],
             isSubscribed: false,
             isCanceled: false,
+            paystackSubscriptionStatus: null,
             paystackCurrentPeriodEnd: null,
         }
     }
@@ -29,6 +30,7 @@ export async function getUserSubscriptionPlan() {
           ...PLANS[0],
           isSubscribed: false,
           isCanceled: false,
+          paystackSubscriptionStatus: null,
           paystackCurrentPeriodEnd: null,
         }
     }

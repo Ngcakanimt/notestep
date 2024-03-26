@@ -1,9 +1,10 @@
 import React from 'react'
-import MaxWidthWrapper from './MaxWidthWrapper'
+import MaxWidthWrapper from '../MaxWidthWrapper'
 import Link from 'next/link'
-import { buttonVariants } from './ui/button'
+import { buttonVariants } from '../ui/button'
 import { UserButton, auth } from '@clerk/nextjs'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Menu } from 'lucide-react'
+import MobileNavbar from './MobileNavbar'
 
 
 const Navbar = async() => {
@@ -21,9 +22,7 @@ const Navbar = async() => {
             <span className='font-bold text-2xl'>notestep</span>
           </Link>
 
-          {/* TO DO: Add Mobile UI */}
-
-          <div className='hidden items-center space-x-4 sm:flex'>
+          <div className='hidden items-center space-x-4 md:flex'>
             {!isAuth ? (
               <>
               <Link
@@ -62,21 +61,14 @@ const Navbar = async() => {
             ) : (
               <>
               <Link
-                href='/about'
+                href='/dashboard/billing'
                 className={buttonVariants({
                   variant: 'ghost',
                   size: 'sm',
                 })}>
-                About
+                Billing
               </Link>
-              <Link
-                href='/pricing'
-                className={buttonVariants({
-                  variant: 'ghost',
-                  size: 'sm',
-                })}>
-                Pricing
-              </Link>
+              
               
               <Link
                 href='/dashboard'
@@ -86,16 +78,14 @@ const Navbar = async() => {
                 Go to Dashboard
               </Link>
 
-              
-              
               <div className='pl-3'>
-                <UserButton afterSignOutUrl="/"/>
+                <UserButton afterSignOutUrl="/" />
               </div>
             </>
             )}
             
           </div>
-
+          <MobileNavbar />
         </div>
       </MaxWidthWrapper>
 

@@ -30,11 +30,22 @@ export async function POST(req: Request) {
                     paystackCustomerId: subscription.customer.customer_code,
                     paystackSubscriptionID: subscription.subscription_code,
                     paystackPriceId: subscription.plan[0].plan_code,
-                    paystackCurrentPeriodEnd: new Date(subscription.next_payment_date * 1000),
+                    paystackCurrentPeriodEnd: new Date(subscription.next_payment_date),
+                    paystackSubscriptionStatus: subscription.status,
                    }
                })
 
             case 'charge.success': // Sent when a subscription payment is made successfully
+                await db.user.update({
+                    where: {
+                        paystackSubscriptionID: subscription.subscription_code,
+                    },
+                    data: {
+                    paystackPriceId: subscription.plan[0].plan_code,
+                    paystackCurrentPeriodEnd: new Date(subscription.next_payment_date),
+                    paystackSubscriptionStatus: subscription.status,
+                    }
+                })
             case 'invoice.create': // Sent when an invoice is created to capture an upcoming subscription charge. Should happen 2-3 days before the charge happens
                 await db.user.update({
                     where: {
@@ -42,11 +53,20 @@ export async function POST(req: Request) {
                     },
                     data: {
                         paystackPriceId: subscription.plan[0].plan_code,
-                        paystackCurrentPeriodEnd: new Date(subscription.next_payment_date * 1000),
+                        paystackCurrentPeriodEnd: new Date(subscription.next_payment_date),
+                        paystackSubscriptionStatus: subscription.status,
                     }
                 });
             case 'invoice.payment_failed': // Sent when a subscription payment fails
-                
+                await db.user.update({
+                    where: {
+                        paystackSubscriptionID: subscription.subscription_code,
+                    },
+                    data: {
+                        paystackPriceId: subscription.plan[0].plan_code,
+                        paystackCurrentPeriodEnd: null,
+                    }
+                })
             case 'subscription.not_renew': // Sent when a subscription is canceled to indicate that it won't be charged on the next payment date
                 await db.user.update({
                     where: {
@@ -58,6 +78,15 @@ export async function POST(req: Request) {
                     }
                 })
             case 'subscription.disable': // Sent when a canceled subscription reaches the end of the subscription period
+                await db.user.update({
+                    where: {
+                        paystackSubscriptionID: subscription.subscription_code,
+                    },
+                    data: {
+                        paystackPriceId: subscription.plan[0].plan_code,
+                        paystackCurrentPeriodEnd: null,
+                    }
+                })
             case 'subscription.expiring_cards': // Sent at the beginning of each month with info on what cards are expiring that month
         }
         

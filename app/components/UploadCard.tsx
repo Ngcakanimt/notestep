@@ -20,9 +20,10 @@ interface UploadCardProps {
     iconPath: string;
     title: string;
     description: string;
+    isSubscribed: boolean;
 }
 
-const UploadDropzone = () => {
+const UploadDropzone = ({ isSubscribed,} : { isSubscribed: boolean }) => {
     const router = useRouter();
 
     const [isUploading, setIsUploading] = useState(false);
@@ -30,7 +31,7 @@ const UploadDropzone = () => {
 
     const { toast } = useToast();
 
-    const { startUpload } = useUploadThing('pdfUploader');
+    const { startUpload } = useUploadThing(isSubscribed ? "proPlanUploader" : "freePlanUploader");
 
     const { mutate: startPolling } = trpc.getFile.useMutation(
         {
@@ -111,7 +112,7 @@ const UploadDropzone = () => {
                                     or drag and drop
                                 </p>
                                 <p className='text-xs text-zinc-500'>
-                                    PDF (up to 4MB)
+                                    PDF (up to {isSubscribed ? '16' : '4'}MB)
                                 </p>
                             </div>
 
@@ -165,6 +166,7 @@ const UploadCard: React.FC<UploadCardProps> = ({
     iconPath,
     title,
     description,
+    isSubscribed,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -232,7 +234,7 @@ const UploadCard: React.FC<UploadCardProps> = ({
                 <DialogTrigger onClick={() => handleClick} asChild>
                 </DialogTrigger>
                 <DialogContent>
-                    <UploadDropzone />
+                    <UploadDropzone isSubscribed={isSubscribed} />
                 </DialogContent>
             </Dialog> 
         </>
