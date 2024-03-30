@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/card";
 import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
+import { db } from "@/app/db";
+
 
 interface BillingFormProps {
   subscriptionPlan: Awaited<ReturnType<typeof getUserSubscriptionPlan>>;
@@ -21,27 +23,24 @@ interface BillingFormProps {
 
 const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
 
-    
-
   const { toast } = useToast();
 
-//   const { data: userSubscription } = trpc.getUserSubscription.useQuery();
-
-//   const { mutate: manageUserSubscriptionLink, isPending } =
-//     trpc.manageUserSubscription.useMutation({
-//       onSuccess: ({ url }) => {
-//         if (url) {
-//           window.location.href = url;
-//         }
-//         if (!url) {
-//           toast({
-//             title: "A problem occurred...",
-//             description: "Please try again shortly",
-//             variant: "destructive",
-//           });
-//         }
-//       },
-//     });
+  
+  const { mutate: manageUserSubscriptionLink, isPending } =
+    trpc.manageUserSubscription.useMutation({
+      onSuccess: ({ url }) => {
+        if (url) {
+          window.location.href = url;
+        }
+        if (!url) {
+          toast({
+            title: "A problem occurred...",
+            description: "Please try again shortly",
+            variant: "destructive",
+          });
+        }
+      },
+    });
 
   return (
     <MaxWidthWrapper className="max-w-5xl">
@@ -49,7 +48,7 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
         className="mt-12"
         onSubmit={(e) => {
           e.preventDefault();
-        //   manageUserSubscriptionLink(userSubscription[0].subscription_code);
+        // manageUserSubscriptionLink();
         }}
       >
         <Card>
@@ -57,7 +56,7 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
             <CardTitle>Subscription Plan</CardTitle>
             <CardDescription>
               You are currently on the{" "}
-              {/* <strong>{userSubscription[0].plan.name}</strong> plan. */}
+              {/* <strong>{userSubscriptionPlan.plan.name}</strong> plan. */}
             </CardDescription>
           </CardHeader>
 
@@ -72,14 +71,14 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
                 md:space-x-0
             "
           >
-            {/* <Button type="submit">
+            <Button type="submit">
               {isPending ? (
                 <Loader2 className="mr-4 h-4 w-4 animate-spin" />
               ) : null}
-              {userSubscription[0].status === 'active'
+              {subscriptionPlan.isSubscribed
                 ? "Manage Subscription"
                 : "Upgrade to PRO"}
-            </Button> */}
+            </Button>
 
           </CardFooter>
         </Card>

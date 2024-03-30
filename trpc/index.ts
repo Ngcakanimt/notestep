@@ -6,7 +6,7 @@ import { db } from '@/app/db';
 import { z } from 'zod';
 import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query';
 import { absoluteUrl } from '@/lib/utils';
-import { paystack } from '@/lib/paystack';
+import { getUserSubscriptionPlan, paystack } from '@/lib/paystack';
 import { PLANS } from '@/config/paystack';
 import { url } from 'inspector';
 import { get } from 'http';
@@ -170,16 +170,16 @@ export const appRouter = router({
     const billingUrl = absoluteUrl('/dashboard/billing')
     if (!userId)
       throw new TRPCError({ code: 'UNAUTHORIZED' })
+
     const dbUser = await db.user.findFirst({
       where: {
         id: userId,
       },
     })
+
     if (!dbUser) {
       throw new TRPCError({ code: 'UNAUTHORIZED' })
     }
-
-    
     
     // Use paystack sdk to initialize the transaction
     const paystackSession = await paystack.transaction.initialize({
@@ -206,7 +206,7 @@ export const appRouter = router({
     return { url: transaction?.authorization_url}
   }),
 
-  getUserSubscription: privateProcedure.query(async ({ ctx }) => {
+  getUserSubscription: privateProcedure.mutation(async ({ ctx }) => {
     const { userId } = ctx;
 
     const dbUser = await db.user.findFirst({

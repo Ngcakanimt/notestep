@@ -61,7 +61,7 @@ const Dashboard = ({subscriptionPlan}: DashboardProps) => {
                 <UploadCard 
                     iconPath='/images/upload.svg'
                     title='Import'
-                    description='Import your meeting notes'
+                    description='Import your PDFs'
                     isSubscribed={subscriptionPlan.isSubscribed}
                 />
                 <WriteCard

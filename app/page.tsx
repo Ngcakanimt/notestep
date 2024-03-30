@@ -47,7 +47,7 @@ export default async function Home() {
         "
         >
           <p className="text-sm font-semibold text-gray-700">
-            Not available to the public yet
+            Not available to the public
           </p>
         </div>
         <h1 className="max-w-4xl text-5xl font-bold md:text-6xl lg:text-7xl">
@@ -56,9 +56,8 @@ export default async function Home() {
           Understand <span className="text-[#FFCB77]">faster.</span>
         </h1>
         <p className="mt-5 max-width-prose text-zinc-700 sm:text-lg">
-          Quickly organize, and analyze important documents to identify your
-          next action items quicker. Simply upload your file and get insights
-          right away by asking questions about your file.
+        Efficiently organize and analyze your documents to swiftly identify 
+        actionable items. Upload your file and instantly gain insights by asking questions directly.
         </p>
         <Link href="/dashboard" target="_blank">
           <div
@@ -173,7 +172,7 @@ export default async function Home() {
                     Whether it&apos;s transcripts from meetings, lecture
                     notes from your courses, or even tender requests from
                     private or public sectors, Notestep can help you quickly
-                    understand the content and make decisions faster.
+                    understand the content quicker.
                   </p>
                 </div>
 
@@ -331,8 +330,7 @@ export default async function Home() {
                     Try us out for free
                   </h1>
                   <p className="mt-5 max-width-prose text-zinc-700 sm:text-lg">
-                    No harm in reading the entire document, but why not try us
-                    out and see how much time you can save?
+                    Ctrl + F is overrated. Try Notestep today and see how you can save time and understand your documents faster.
                   </p>
                   <Link href="/dashboard" target="_blank">
                     <div

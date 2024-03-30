@@ -19,7 +19,7 @@ const MobileNavbar = async () => {
   const isAuth = !!userId;
 
     return (
-        <div className="md:hidden block">
+        <div className="md:hidden block cursor-pointer">
             {!isAuth ? (
                 <> 
                 <div className="flex flex-row items-center">
