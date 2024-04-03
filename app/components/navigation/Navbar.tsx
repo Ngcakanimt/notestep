@@ -25,14 +25,14 @@ const Navbar = async() => {
           <div className='hidden items-center space-x-4 md:flex'>
             {!isAuth ? (
               <>
-              <Link
+              {/* <Link
                 href='/about'
                 className={buttonVariants({
                   variant: 'ghost',
                   size: 'sm',
                 })}>
                 About Us
-              </Link>
+              </Link> */}
               <Link
                 href='/pricing'
                 className={buttonVariants({

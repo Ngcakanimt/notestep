@@ -24,24 +24,24 @@ const MobileNavbar = async () => {
                 <> 
                 <div className="flex flex-row items-center">
                     <Sheet>
-                        <SheetTrigger asChild>
+                        <SheetTrigger asChild >
                         <Menu />
                         </SheetTrigger>
-                        <SheetContent className="w-[350px] sm:w-[540px]">
+                        <SheetContent className="w-[150px] sm:w-[350px]">
                         <SheetHeader className="flex flex-row">
                             <SheetTitle>Hello</SheetTitle>
                             
                         </SheetHeader>
                         <div className="flex flex-col py-4 justify-start">
                             <div className="flex flex-col items-start gap-4">
-                            <Link
+                            {/* <Link
                                 href='/about'
                                 className={buttonVariants({
                                 variant: 'ghost',
                                 size: 'sm',
                                 })}>
                                 About Us
-                            </Link>
+                            </Link> */}
                             <Link
                                 href='/pricing'
                                 className={buttonVariants({
@@ -87,7 +87,6 @@ const MobileNavbar = async () => {
                         <SheetContent className="w-[350px] sm:w-[540px]">
                         <SheetHeader className="text-start flex flex-row">
                             <SheetTitle>Welcome</SheetTitle>
-                            
                         </SheetHeader>
                         <div className="flex flex-col py-4 justify-start">
                             <div className="flex flex-col items-start gap-4">
