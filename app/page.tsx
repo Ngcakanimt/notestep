@@ -323,6 +323,16 @@ export default async function Home() {
                       contribute. We would like to hear from you.
                     </AccordionContent>
                   </AccordionItem>
+                  <AccordionItem value="item-4">
+                    <AccordionTrigger>
+                      When will Notestep be available to the public?
+                    </AccordionTrigger>
+                    <AccordionContent className="text-start">
+                      We are currently in the beta stage and are looking to
+                      release Notestep to the public soon. Stay tuned for more
+                      updates. If you would like early access, please reach out to mthangcakani2@gmail.com.
+                    </AccordionContent>
+                  </AccordionItem>
                 </Accordion>
 
                 <MaxWidthWrapper className="mb-12 mt-36 sm:mt-14 flex flex-col items-center justify-center text-center">
