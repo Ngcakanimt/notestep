@@ -27,9 +27,9 @@ const MobileNavbar = async () => {
                         <SheetTrigger asChild >
                         <Menu />
                         </SheetTrigger>
-                        <SheetContent className="w-[150px] sm:w-[350px]">
+                        <SheetContent className="w-[230px] sm:w-[4500px]">
                         <SheetHeader className="flex flex-row">
-                            <SheetTitle>Hello</SheetTitle>
+                            <SheetTitle>Greetings</SheetTitle>
                             
                         </SheetHeader>
                         <div className="flex flex-col py-4 justify-start">
