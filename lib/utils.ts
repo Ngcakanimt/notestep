@@ -41,7 +41,7 @@ export function constructMetadata({
       ]
     },
     icons,
-    metadataBase: new URL('https://notestep.vercel.app/'),
+    metadataBase: new URL('https://notestep.com/'),
     // themeColor: '#FFFFFF',
     ...(noIndex && {
       robots: {

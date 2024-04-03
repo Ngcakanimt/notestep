@@ -36,7 +36,7 @@ export const ChatContextProvider = ({ fileId, children } : ChatContextProviderPr
     const backupMessage = useRef('')
 
 
-    // Only part of the app where TRPC is not going to be user
+    // Only part of the app where TRPC is not going to be used
     // This is going be a react query
     // To stream the reponse from 3rd party API
     const { mutate: sendMessage } = useMutation({

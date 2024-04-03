@@ -18,6 +18,7 @@ export async function POST(req: Request) {
         });
 
         const subscription = await webhook.data;
+        console.log(subscription);
         // Handle webhook
         switch (webhook.event) {
             case 'subscription.create': // Sent when a subscription is created successfully
@@ -75,6 +76,7 @@ export async function POST(req: Request) {
                     data: {
                         paystackPriceId: subscription.plan[0].plan_code,
                         paystackCurrentPeriodEnd: null,
+                        paystackSubscriptionStatus: subscription.status,
                     }
                 })
             case 'subscription.disable': // Sent when a canceled subscription reaches the end of the subscription period
@@ -85,6 +87,7 @@ export async function POST(req: Request) {
                     data: {
                         paystackPriceId: subscription.plan[0].plan_code,
                         paystackCurrentPeriodEnd: null,
+                        paystackSubscriptionStatus: subscription.status,
                     }
                 })
             case 'subscription.expiring_cards': // Sent at the beginning of each month with info on what cards are expiring that month

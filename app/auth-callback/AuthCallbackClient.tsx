@@ -32,7 +32,7 @@ const AuthCallbackClient = () => {
         <div className='w-full mt-24 flex justify-center'>
             <div className='flex flex-col items-center gap-2'>
                 <Loader2 className='h-8 w-8 animate-spin text-zinc-800' />
-                <h3 className='font-semibold'>Bringing your account to life...</h3>
+                <h3 className='font-semibold'>Finalizing a few things...</h3>
                 <p>You will be redirected when we&apos;re done</p>
             </div>
         </div>

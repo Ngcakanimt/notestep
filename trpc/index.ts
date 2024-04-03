@@ -8,8 +8,7 @@ import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query';
 import { absoluteUrl } from '@/lib/utils';
 import { getUserSubscriptionPlan, paystack } from '@/lib/paystack';
 import { PLANS } from '@/config/paystack';
-import { url } from 'inspector';
-import { get } from 'http';
+
 
 export const appRouter = router({
   authCallback: publicProcedure.query(async () => {
@@ -32,15 +31,7 @@ export const appRouter = router({
             id: user?.id,
             email: user?.emailAddresses[0].emailAddress
           }
-        })
-      
-      // await paystack.customer.create({
-      //   email: user?.emailAddresses[0].emailAddress,
-      //   first_name: user?.firstName ?? '',
-      //   last_name: user?.lastName ?? '',
-      // });
-
-        
+        })    
     }
     return { success: true }
   }),
@@ -180,12 +171,26 @@ export const appRouter = router({
     if (!dbUser) {
       throw new TRPCError({ code: 'UNAUTHORIZED' })
     }
+
+    const subscription = await getUserSubscriptionPlan();
+
+    if(subscription.isSubscribed) {
+      const url = `https://api.paystack.co/subscription/${dbUser.paystackSubscriptionID}/manage/link`
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${process.env.PAYSTACK_TEST_SECRET_KEY}`,
+        },
+      }).then((res) => res.json());
+
+      return { url: response.data.link }
+    }
     
     // Use paystack sdk to initialize the transaction
     const paystackSession = await paystack.transaction.initialize({
       channels: ['card'],
       amount: '150',
-      plan: PLANS[1].price.priceIds?.test || '',
+      plan: PLANS[1].price.priceIds?.production || '',
       email: dbUser.email,
       metadata: {
         userId: userId
@@ -202,60 +207,7 @@ export const appRouter = router({
 
     let transaction = paystackSession.data
 
-    
     return { url: transaction?.authorization_url}
-  }),
-
-  getUserSubscription: privateProcedure.mutation(async ({ ctx }) => {
-    const { userId } = ctx;
-
-    const dbUser = await db.user.findFirst({
-      where: {
-        id: userId,
-      },
-    })
-
-    if (!dbUser) {
-      throw new TRPCError({ code: 'UNAUTHORIZED' })
-    }
-
-    const url = `https://api.paystack.co/subscription/${dbUser.paystackSubscriptionID}`;
-
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-      Authorization: `Bearer ${process.env.PAYSTACK_TEST_SECRET_KEY}`,
-      },
-    }).then((res) => res.json());
-
-    return response.data;
-
-  }),
-
-  manageUserSubscription: privateProcedure.mutation(async ({ ctx }) => {
-    const { userId } = ctx;
-
-    const dbUser = await db.user.findFirst({
-      where: {
-        id: userId,
-      },
-    })
-
-    if (!dbUser) {
-      throw new TRPCError({ code: 'UNAUTHORIZED' })
-    }
-
-    const url = `https://api.paystack.co/subscription/${dbUser.paystackSubscriptionID}/manage/link`
-
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${process.env.PAYSTACK_TEST_SECRET_KEY}`,
-      },
-    }).then((res) => res.json());
-
-    return response.data.link;
-
   }),
 
 

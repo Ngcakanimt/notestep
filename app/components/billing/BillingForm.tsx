@@ -15,40 +15,40 @@ import {
 import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
 import { db } from "@/app/db";
+import { format } from "date-fns";
 
 
 interface BillingFormProps {
   subscriptionPlan: Awaited<ReturnType<typeof getUserSubscriptionPlan>>;
+  userSubscription: any;
 }
 
-const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
+const BillingForm = ({ subscriptionPlan, userSubscription }: BillingFormProps) => {
 
   const { toast } = useToast();
 
-  
-  const { mutate: manageUserSubscriptionLink, isPending } =
-    trpc.manageUserSubscription.useMutation({
+  const { mutate: createPaystackSession, isPending } =
+    trpc.createPaystackSession.useMutation({
       onSuccess: ({ url }) => {
-        if (url) {
-          window.location.href = url;
-        }
+        if (url) window.location.href = url
         if (!url) {
           toast({
-            title: "A problem occurred...",
-            description: "Please try again shortly",
-            variant: "destructive",
-          });
+            title: 'There was a problem...',
+            description: 'Please try again in a moment',
+            variant: 'destructive',
+          })
         }
       },
-    });
+    })
+
 
   return (
     <MaxWidthWrapper className="max-w-5xl">
       <form
-        className="mt-12"
+        className='mt-12'
         onSubmit={(e) => {
-          e.preventDefault();
-        // manageUserSubscriptionLink();
+          e.preventDefault()
+          createPaystackSession()
         }}
       >
         <Card>
@@ -56,7 +56,7 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
             <CardTitle>Subscription Plan</CardTitle>
             <CardDescription>
               You are currently on the{" "}
-              {/* <strong>{userSubscriptionPlan.plan.name}</strong> plan. */}
+              <strong className="text-[#FFCB77]">{userSubscription?.data.plan.name}</strong> plan.
             </CardDescription>
           </CardHeader>
 
@@ -80,9 +80,23 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
                 : "Upgrade to PRO"}
             </Button>
 
+            {subscriptionPlan.isSubscribed ? (
+              <p className='rounded-full text-xs font-medium'>
+                {subscriptionPlan.isCanceled
+                  ? 'Your plan will be canceled on '
+                  : 'Your plan renews on'}
+                  
+                {subscriptionPlan.paystackCurrentPeriodEnd && format(
+              subscriptionPlan.paystackCurrentPeriodEnd,
+              'dd MMMM yyyy'
+              )}
+                .
+              </p>
+            ) : null}
+
           </CardFooter>
         </Card>
-      </form>
+        </form>
     </MaxWidthWrapper>
   );
 };
