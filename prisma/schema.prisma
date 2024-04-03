@@ -44,7 +44,7 @@ model File {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  User      User?    @relation(fields: [userId], references: [id])
+  User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String?  
 
   embeddings Float[]
@@ -59,9 +59,11 @@ model Message {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  User     User?    @relation(fields: [userId], references: [id])
+  User     User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId   String?
-  File     File?   @relation(fields: [fileId], references: [id])
+  File     File?   @relation(fields: [fileId], references: [id], onDelete: Cascade)
   fileId   String? @db.ObjectId
+
+
   
 }
