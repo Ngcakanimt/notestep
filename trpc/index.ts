@@ -32,7 +32,13 @@ export const appRouter = router({
             email: user?.emailAddresses[0].emailAddress
           }
         })    
-    }
+      }
+
+      await paystack.customer.create({
+        email: user?.emailAddresses[0].emailAddress,
+        first_name: user?.firstName ?? '',
+        last_name: user?.lastName ?? '',
+      })
     return { success: true }
   }),
 

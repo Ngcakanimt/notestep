@@ -4,7 +4,7 @@ import { currentUser } from "@clerk/nextjs"
 import {Paystack} from 'paystack-sdk';
 
 
-export const paystack = new Paystack(process.env.PAYSTACK_TEST_SECRET_KEY as string)
+export const paystack = new Paystack(process.env.PAYSTACK_LIVE_SECRET_KEY as string)
 
 export async function getUserSubscriptionPlan() {
     const user = await currentUser();
@@ -42,7 +42,7 @@ export async function getUserSubscriptionPlan() {
     )
 
     const plan = isSubscribed
-        ? PLANS.find((plan) => plan.price.priceIds?.test === dbUser.paystackPriceId)
+        ? PLANS.find((plan) => plan.price.priceIds?.production === dbUser.paystackPriceId)
         : null
 
         let isCanceled = false
