@@ -79,10 +79,10 @@ const page = async () => {
       <MaxWidthWrapper className="mb-8 mt-24 text-center max-w-5xl">
         <div className="mx-auto mb-10 sm:max-w-lg">
           <h1 className="text-6xl font-bold sm:text-7xl">
-            You want answers? We got you.
+            Ctrl + F is overrated. Let us help you out.
           </h1>
           <p className="mt-5 text-gray-600 sm:text-lg">
-            Whether you&apos;re just trying out our service or need more,
+            Whether you&apos;re trying out our service or you need more,
             we&apos;ve got you covered.
           </p>
         </div>
