@@ -5,12 +5,15 @@ import { buttonVariants } from '../ui/button'
 import { UserButton, auth } from '@clerk/nextjs'
 import { ArrowRight, Menu } from 'lucide-react'
 import MobileNavbar from './MobileNavbar'
+import { getUserSubscriptionPlan } from '@/lib/paystack'
 
 
 const Navbar = async() => {
 
   const { userId } = await auth();
   const isAuth = !!userId;
+
+  const userSubscription = await getUserSubscriptionPlan();
 
   return (
     <nav className='sticky h-14 inset-x-0 top-0 z-30 w-full backdrop-blur-lg transition-all mt-4'>
@@ -60,7 +63,8 @@ const Navbar = async() => {
             </>
             ) : (
               <>
-              <Link
+              {userSubscription.isSubscribed && (
+                <Link
                 href='/dashboard/billing'
                 className={buttonVariants({
                   variant: 'ghost',
@@ -68,8 +72,7 @@ const Navbar = async() => {
                 })}>
                 Billing
               </Link>
-              
-              
+              )}
               <Link
                 href='/dashboard'
                 className={buttonVariants({

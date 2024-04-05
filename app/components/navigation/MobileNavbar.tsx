@@ -13,10 +13,13 @@ import { ArrowRight, Menu } from "lucide-react";
 import React from "react";
 import { Button, buttonVariants } from "../ui/button";
 import Link from "next/link";
+import { getUserSubscriptionPlan } from "@/lib/paystack";
 
 const MobileNavbar = async () => {
   const { userId } = await auth();
   const isAuth = !!userId;
+
+  const userSubscription = await getUserSubscriptionPlan();
 
     return (
         <div className="md:hidden block cursor-pointer">
@@ -90,7 +93,8 @@ const MobileNavbar = async () => {
                         </SheetHeader>
                         <div className="flex flex-col py-4 justify-start">
                             <div className="flex flex-col items-start gap-4">
-                            <Link
+                            {userSubscription.isSubscribed && (
+                                <Link
                                 href='/dashboard/billing'
                                 className={buttonVariants({
                                 variant: 'ghost',
@@ -98,6 +102,7 @@ const MobileNavbar = async () => {
                                 })}>
                                 Billing
                             </Link>
+                            )}
                             <Link
                                 href='/dashboard'
                                 className={buttonVariants({

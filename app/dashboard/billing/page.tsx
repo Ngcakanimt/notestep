@@ -31,9 +31,13 @@ const page = async () => {
     const response = await fetch(url, {
         method: 'GET',
         headers: {
-        Authorization: `Bearer ${process.env.PAYSTACK_TEST_SECRET_KEY}`,
+        Authorization: `Bearer ${process.env.PAYSTACK_LIVE_SECRET_KEY}`,
         },
     })
+
+    if (!response.ok) {
+        return new Error('Failed to fetch subscription data');
+    }
     
     const data = await response.json();
 
