@@ -41,64 +41,6 @@ const BillingForm = ({ subscriptionPlan, userSubscription }: BillingFormProps) =
       },
     })
 
-  if(!subscriptionPlan.isSubscribed) {
-    return (
-      <MaxWidthWrapper className="max-w-5xl">
-      <form
-        className='mt-12'
-        onSubmit={(e) => {
-          e.preventDefault()
-          createPaystackSession()
-        }}
-      >
-        <Card>
-          <CardHeader>
-            <CardTitle>Subscription Plan</CardTitle>
-            <CardDescription>
-              You are currently on the{" "}
-              <strong className="text-[#FFCB77]">Free</strong> plan.
-            </CardDescription>
-          </CardHeader>
-
-          <CardFooter
-            className="
-                flex 
-                flex-col 
-                items-start 
-                space-y-2 
-                md:flex-row 
-                md:justify-between 
-                md:space-x-0
-            "
-          >
-            <Button type="submit">
-              {isPending ? (
-                <Loader2 className="mr-4 h-4 w-4 animate-spin" />
-              ) : null}
-              "Upgrade to PRO"
-            </Button>
-
-            {/* {subscriptionPlan.isSubscribed ? (
-              <p className='rounded-full text-xs font-medium'>
-                {subscriptionPlan.isCanceled
-                  ? 'Your plan will be canceled on '
-                  : 'Your plan renews on'}
-                  
-                {subscriptionPlan.paystackCurrentPeriodEnd && format(
-              subscriptionPlan.paystackCurrentPeriodEnd,
-              'dd MMMM yyyy'
-              )}
-                .
-              </p>
-            ) : null} */}
-
-          </CardFooter>
-        </Card>
-        </form>
-    </MaxWidthWrapper>
-    )
-  }
-else{
   return (
     <MaxWidthWrapper className="max-w-5xl">
       <form
@@ -157,7 +99,6 @@ else{
     </MaxWidthWrapper>
           
   );
-  }
 };
 
 export default BillingForm;
