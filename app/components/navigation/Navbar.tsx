@@ -63,6 +63,16 @@ const Navbar = async() => {
             </>
             ) : (
               <>
+              {!userSubscription.isSubscribed && (
+                <Link
+                href='/pricing'
+                className={buttonVariants({
+                  variant: 'ghost',
+                  size: 'sm',
+                })}>
+                Pricing
+              </Link>
+              )}
               {userSubscription.isSubscribed && (
                 <Link
                 href='/dashboard/billing'

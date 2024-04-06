@@ -93,6 +93,16 @@ const MobileNavbar = async () => {
                         </SheetHeader>
                         <div className="flex flex-col py-4 justify-start">
                             <div className="flex flex-col items-start gap-4">
+                            {!userSubscription.isSubscribed && (
+                                <Link
+                                href='/pricing'
+                                className={buttonVariants({
+                                variant: 'ghost',
+                                size: 'sm',
+                                })}>
+                                Pricing
+                            </Link>
+                            )}
                             {userSubscription.isSubscribed && (
                                 <Link
                                 href='/dashboard/billing'
