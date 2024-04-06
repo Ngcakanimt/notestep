@@ -196,7 +196,7 @@ export const appRouter = router({
     const paystackSession = await paystack.transaction.initialize({
       channels: ['card'],
       amount: '150',
-      plan: PLANS[1].price.priceIds?.production || '',
+      plan: PLANS[1].price.priceIds?.test || '',
       email: dbUser.email,
       metadata: {
         userId: userId

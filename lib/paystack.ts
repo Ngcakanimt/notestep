@@ -4,7 +4,7 @@ import { currentUser } from "@clerk/nextjs"
 import {Paystack} from 'paystack-sdk';
 
 
-export const paystack = new Paystack(process.env.PAYSTACK_LIVE_SECRET_KEY as string)
+export const paystack = new Paystack(process.env.PAYSTACK_TEST_SECRET_KEY as string)
 
 export async function getUserSubscriptionPlan() {
     const user = await currentUser();
