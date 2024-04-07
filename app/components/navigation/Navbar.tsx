@@ -36,14 +36,14 @@ const Navbar = async() => {
                 })}>
                 About Us
               </Link> */}
-              <Link
+              {/* <Link
                 href='/pricing'
                 className={buttonVariants({
                   variant: 'ghost',
                   size: 'sm',
                 })}>
                 Pricing
-              </Link>
+              </Link> */}
               <Link
                 href='/sign-in'
                 className={buttonVariants({
@@ -63,7 +63,7 @@ const Navbar = async() => {
             </>
             ) : (
               <>
-              {!userSubscription.isSubscribed && (
+              {/* {!userSubscription.isSubscribed && (
                 <Link
                 href='/pricing'
                 className={buttonVariants({
@@ -72,7 +72,7 @@ const Navbar = async() => {
                 })}>
                 Pricing
               </Link>
-              )}
+              )} */}
               {userSubscription.isSubscribed && (
                 <Link
                 href='/dashboard/billing'

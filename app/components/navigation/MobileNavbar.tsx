@@ -45,14 +45,14 @@ const MobileNavbar = async () => {
                                 })}>
                                 About Us
                             </Link> */}
-                            <Link
+                            {/* <Link
                                 href='/pricing'
                                 className={buttonVariants({
                                 variant: 'ghost',
                                 size: 'sm',
                                 })}>
                                 Pricing
-                            </Link>
+                            </Link> */}
                             <Link
                                 href='/sign-in'
                                 className={buttonVariants({
@@ -93,7 +93,7 @@ const MobileNavbar = async () => {
                         </SheetHeader>
                         <div className="flex flex-col py-4 justify-start">
                             <div className="flex flex-col items-start gap-4">
-                            {!userSubscription.isSubscribed && (
+                            {/* {!userSubscription.isSubscribed && (
                                 <Link
                                 href='/pricing'
                                 className={buttonVariants({
@@ -102,7 +102,7 @@ const MobileNavbar = async () => {
                                 })}>
                                 Pricing
                             </Link>
-                            )}
+                            )} */}
                             {userSubscription.isSubscribed && (
                                 <Link
                                 href='/dashboard/billing'
