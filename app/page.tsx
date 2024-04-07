@@ -56,7 +56,7 @@ export default async function Home() {
           Understand <span className="text-[#FFCB77]">better.</span>
         </h1>
         <p className="mt-5 max-width-prose text-zinc-700 sm:text-lg">
-        Quickly find answers to your questions from your documents, simplify complex content, and usderstand faster with the power of AI. 
+        Quickly find answers to your questions from your documents, simplify complex content, and understand faster with the power of AI. 
         </p>
         <Link href="/dashboard" target="_blank">
           <div
