@@ -16,7 +16,7 @@ export function absoluteUrl(path: string) {
 }
 
 export function constructMetadata({
-  title =  "Notestep - Understand better",
+  title =  "Notestep - Faster Answers With AI",
   description = "Notestep helps you understand your PDF sources faster with AI-powered semantic search and summarization.",
   image = "/thumbnail.png",
   icons = "/favicon.ico",
