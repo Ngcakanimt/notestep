@@ -33,12 +33,6 @@ export const appRouter = router({
           }
         })    
       }
-
-      // await paystack.customer.create({
-      //   email: user?.emailAddresses[0].emailAddress,
-      //   first_name: user?.firstName ?? '',
-      //   last_name: user?.lastName ?? '',
-      // })
     return { success: true }
   }),
 
