@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { trpc } from "../_trpc/client";
 import { useEffect, Suspense } from "react";
 import { Loader2 } from "lucide-react";
+import AuthCallbackClient from "./AuthCallbackClient";
 
 
 const LoadingFallback = () => (
@@ -43,10 +44,12 @@ const AuthCallbackContent = () => {
 
 }
 
+
+
 const Page = () => {
     return (
         <Suspense fallback={<LoadingFallback />}>
-            <AuthCallbackContent />
+            <AuthCallbackClient />
         </Suspense>
     )
 
