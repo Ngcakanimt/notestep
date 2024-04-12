@@ -126,7 +126,7 @@ const MobileNavbar = async () => {
                         </SheetContent>
                     </Sheet>
                     <div className='pl-5'>
-                        <UserButton afterSignOutUrl="/" />
+                        <UserButton afterSignOutUrl="/sign-in" />
                     </div>
                 </div>
                 </>

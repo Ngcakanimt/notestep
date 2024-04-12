@@ -92,7 +92,7 @@ const Navbar = async() => {
               </Link>
 
               <div className='pl-3'>
-                <UserButton afterSignOutUrl="/" />
+                <UserButton afterSignOutUrl="/sign-in" />
               </div>
             </>
             )}
